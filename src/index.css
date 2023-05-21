@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.white-side {
+    background-color: #ffffff;
+  }
+  .blue-side {
+    background-color: #135fc3;
+  }
+  .text-size-logo {
+    font-size: 2rem;
+  }
+
+  @font-face {
+      font-family: Inter;
+      src: url(./assets/Inter/Inter-VariableFont_slnt,wght.ttf);
+  }
+
+  @font-face {
+      font-family: IslandMoments;
+      src: url(./assets/Island_Moments/IslandMoments-Regular.ttf);
+  }
+
+  @font-face {
+      font-family: Roboto;
+      src: url(./assets/Roboto/Roboto-Regular.ttf);
+  }
