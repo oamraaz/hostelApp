@@ -98,9 +98,10 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import Navbar from './Navbar.vue'
+
 const router = useRouter()
 const user = reactive({
   email: '',

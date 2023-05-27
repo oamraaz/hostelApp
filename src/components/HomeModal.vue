@@ -13,8 +13,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import AuthService from './../services/AuthService'
+onMounted(() => {
+  console.log('Component is mounted')
+})
 const emit = defineEmits(['hideModal'])
 const user = ref({
   email: '',

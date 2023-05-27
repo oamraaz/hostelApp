@@ -1,0 +1,12 @@
+{
+    "logstash": "http://localhost:5000",
+    "kibana": "http://localhost:5601",
+    "config": "htrp://localhost:9001",
+    "discovery": "http://localhost:9002",
+    "booking": "http://localhost:9003",
+    "keyclock": "http://localhost:9004",
+    "guest": "http://localhost:9005",
+    "payment": "http://localhost:9007",
+    "gateway": "http://localhost:9009",
+    "elasticsearch": "http://localhost:9200"
+}

@@ -1,8 +1,10 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import api from '../api/api'
+const keycloakUrl = api.get('keyclock')
+const API_URL = `http://${keycloakUrl}/auth/realms/CloudHouse/protocol/openid-connect/token`
 
-const API_URL = 'http://localhost:9004/auth/realms/CloudHouse/protocol/openid-connect/token'
-
+console.log(API_URL)
 class AuthService {
   async login (user) {
     const response = await axios.post(API_URL, {
