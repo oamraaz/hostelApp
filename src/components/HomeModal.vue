@@ -2,16 +2,30 @@
     <div class="fixed left-0 right-0 top-0 bottom-0 flex justify-center items-center" @click.stop="$emit('hideModal')">
         <form action="/" method="POST" class="flex flex-col items-center text-center" @submit.prevent @click.stop>
             <h2>Please,<br>Login or Register</h2>
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Password">
+            <input type="email" v-model="user.username" placeholder="Email">
+            <input type="password" v-model="user.password" placeholder="Password">
             <div class="flex">
-                <button class="btn-login" @click="$emit('hideModal')">Log in</button>
+                <button class="btn-login" @click="login">Log in</button>
                 <button class="btn-register" @click="$emit('hideModal')">Register</button>
             </div>
         </form>
     </div>
 </template>
 
+<script setup>
+import { ref } from 'vue'
+import AuthService from './../services/AuthService'
+const emit = defineEmits(['hideModal'])
+const user = ref({
+  email: '',
+  password: ''
+})
+async function login () {
+  const result = await AuthService.login(user.value)
+  console.log(result)
+  emit('hideModal')
+}
+</script>
 <style scoped>
 .fixed {
     background: rgba(0, 0, 0, 0.571);
