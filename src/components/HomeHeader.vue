@@ -70,9 +70,14 @@
 </template>
 
 <script setup>
+import useAuth from './../composables/useAuth'
+const { isAuthorized } = useAuth()
 async function checkAvailability () {
   console.log('Test')
+  console.log(isAuthorized.value)
 }
+
+
 
 </script>
 

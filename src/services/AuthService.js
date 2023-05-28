@@ -2,7 +2,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import api from '../api/api'
 const keycloakUrl = api.get('keyclock')
-const API_URL = `http://${keycloakUrl}/auth/realms/CloudHouse/protocol/openid-connect/token`
+const API_URL = `${keycloakUrl}/auth/realms/CloudHouse/protocol/openid-connect/token`
 
 console.log(API_URL)
 class AuthService {
@@ -18,14 +18,16 @@ class AuthService {
       },
       auth: {
         username: 'cloudhouse',
-        password: 'Ov8jMh8gKGZRmzJ38cfPR0gJnywusMCz'
+        password: 'ErbIDLyUdD3FnWFzlqYC3unld1dndESi'
       }
     })
     if (response.data.access_token) {
       Cookies.set('user', JSON.stringify(response.data), { expires: 0.5 })
       console.log('успех')
+    } else {
+      console.log('неудача')
+      console.log(response)
     }
-
     return response
   }
 
@@ -34,8 +36,8 @@ class AuthService {
   }
 
   getCurrentUser () {
-    const userCookie = Cookies.get('user');
-    return userCookie ? JSON.parse(userCookie) : null;
+    const userCookie = Cookies.get('user')
+    return userCookie ? JSON.parse(userCookie) : null
   }
 }
 

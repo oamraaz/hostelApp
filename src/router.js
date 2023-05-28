@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import AuthService from './services/AuthService'
+import useUser from './composables/useUser'
 const routes = [
   {
     path: '/',
@@ -36,7 +36,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const currentUser = AuthService.getCurrentUser()
+  const { user: currentUser } = useUser
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   const isGuestPage = to.matched.some(record => record.meta.guest)
   console.log(currentUser)
