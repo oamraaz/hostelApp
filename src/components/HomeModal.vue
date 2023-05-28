@@ -2,12 +2,11 @@
     <div class="fixed left-0 right-0 top-0 bottom-0 flex justify-center items-center" @click.stop="$emit('hideModal')">
         <form action="/" method="POST" class="flex flex-col items-center text-center" @submit.prevent @click.stop>
             <h2>Please,<br>Login or Register</h2>
-            <input type="text" v-model="user.username" placeholder="Username">
-            <input type="email" v-model="user.email" placeholder="Email" v-if="isRegister">
+            <input type="email" v-model="user.username" placeholder="Username">
             <input type="password" v-model="user.password" placeholder="Password">
             <input type="password" v-model="user.password" placeholder="Confirm Password" v-if="isRegister">
             <input type="text" v-model="user.name" placeholder="Name" v-if="isRegister">
-            <input type="text" v-model="user.lastName" placeholder="LastName" v-if="isRegister">
+            <input type="text" v-model="user.lastName" placeholder="Last Name" v-if="isRegister">
             <!-- birth date -->
             <input type="date" v-model="user.birthDate" placeholder="Birth Date" v-if="isRegister">
             <!-- citizenship -->
@@ -26,10 +25,7 @@ import { ref } from 'vue'
 import useAuth from '../composables/useAuth'
 const isRegister = ref(false)
 const emit = defineEmits(['hideModal'])
-const user = ref({
-  email: '',
-  password: ''
-})
+const user = ref({})
 const { login, register} = useAuth()
 async function signIn () {
   if (isRegister.value) {

@@ -3,27 +3,21 @@ import api from '../api/api'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import { onMounted, ref } from 'vue'
-import useRequest from './useRequest'
 
-const keycloakUrl = api.get()
-const guestUrl = api.get('')
+const keycloakUrl = api.get('keyclock')
+const guestUrl = api.get()
 const loginUrl = `${keycloakUrl}/auth/realms/CloudHouse/protocol/openid-connect/token`
 const registerUrl = `${guestUrl}/guest-service/guest/register`
 export default function useAuth () {
   const isAuthorized = ref(false)
-
   onMounted(async () => {
     const userCookie = Cookies.get('user')
-    const { get } = useRequest()
     if (userCookie) {
       isAuthorized.value = true
     }
-    const result = await axios.get('http://192.168.6.156:9009/booking-service/booking/available/rooms?checkIn=2023-05-28T00:00:00&checkOut=2023-05-30T00:00:00&persons=2')
-    console.log(result)
   })
 
   const login = async (user) => {
-    console.log(user)
     console.log(loginUrl)
     const response = await axios.post(
       loginUrl,
@@ -31,6 +25,7 @@ export default function useAuth () {
         username: user.username,
         password: user.password,
         grant_type: 'password'
+
       },
       {
         headers: {
@@ -42,6 +37,7 @@ export default function useAuth () {
         }
       }
     )
+
     if (response.data.access_token) {
       Cookies.set('user', JSON.stringify(response.data),
         // 1 hour
@@ -59,7 +55,7 @@ export default function useAuth () {
     const response = await axios.post(registerUrl, {
       firstName: user.name,
       lastName: user.lastName,
-      email: user.email,
+      email: user.username,
       birthDate: '2001-12-08',
       citizenship: user.citizenship,
       password: user.password

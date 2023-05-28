@@ -1,8 +1,8 @@
 import api from './api.json'
 
 export default {
-  get () {
-    console.log(api.gateway)
-    return api.gateway
+  get (url) {
+    if (url === undefined) return api.gateway
+    return api[url]
   }
 }
