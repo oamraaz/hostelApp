@@ -28,13 +28,13 @@
                 <div class="item">
                     <div>
                         <div class="item_name">CHECK-IN</div>
-                        <div class="item_description"><img src="../assets/Check_Date.png" alt="">Check-In Date</div>
+                        <input type="date" v-model="orderParams.checkIn" style="color: black;">
                     </div>
                 </div>
                 <div class="item">
                     <div>
                         <div class="item_name">CHECK-OUT</div>
-                        <div class="item_description"><img src="../assets/Check_Date.png" alt="">Check-Out Date</div>
+                        <input type="date" v-model="orderParams.checkOut" style="color: black;">
                     </div>
                 </div>
                 <div class="item">
@@ -43,8 +43,8 @@
                         <!--<div class="item_description"><i class="fa-solid fa-angle-down"></i>Suits</div>-->
                         <div class="item_description">
                             <i class="fa-solid fa-angle-down"></i>
-                            <select>
-                                <option value="1">Suits</option>
+                            <select v-model="orderParams.roomId">
+                                <option v-for="room in rooms" :key="room.idType" :value="room.idType">{{ room.typeName }}</option>
                             </select>
                         </div>
                     </div>
@@ -55,8 +55,8 @@
                         <!--<div class="item_description"><i class="fa-solid fa-angle-down"></i>1 Person</div>-->
                         <div class="item_description">
                             <i class="fa-solid fa-angle-down"></i>
-                            <select>
-                                <option value="1">1 Person</option>
+                            <select v-model="orderParams.personCount">
+                                <option v-for="person in persons" :key="person.number" :value="person.number">{{ person.number }}</option>
                             </select>
                         </div>
                     </div>
@@ -70,14 +70,42 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import useAuth from './../composables/useAuth'
+import axios from 'axios'
 const { isAuthorized } = useAuth()
+const orderParams = ref({})
 async function checkAvailability () {
-  console.log('Test')
-  console.log(isAuthorized.value)
+  const test = await axios.get('http://localhost:9009/booking-service/booking/available/rooms',
+    {
+      params: {
+        checkIn: new Date(orderParams.value.checkIn),
+        checkOut: new Date(orderParams.value.checkOut),
+        roomType: orderParams.value.roomId,
+        persons: orderParams.value.personCount
+      }
+    })
+  // переход на страницу
 }
-
-
+const rooms = ref([])
+const persons = ref([
+  {
+    number: 1
+  },
+  {
+    number: 2
+  },
+  {
+    number: 3
+  },
+  {
+    number: 4
+  }
+])
+onMounted(async () => {
+  rooms.value = (await axios.get('http://localhost:9009/booking-service/booking/details/room/types')).data.data
+  console.log(rooms)
+})
 
 </script>
 
