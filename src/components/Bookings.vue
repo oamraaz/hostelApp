@@ -103,11 +103,6 @@
                 <div class="buildig-name">12 - B1</div>
                 <div class="status"></div>
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
             <div class="period" @click="show_building_modal()" :style="setPeriod(1, 4, 5, 6)"></div>
         </div>
         <div class="building-item">
@@ -117,11 +112,6 @@
                 <div class="buildig-name">12 - B1</div>
                 <div class="status paid"></div>
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
         </div>
         <div class="building-item">
             <div class="box1 flex items-center">
@@ -130,11 +120,6 @@
                 <div class="buildig-name">12 - B1</div>
                 <div class="status"></div>
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
             <div class="period" @click="show_building_modal()" :style="setPeriod(1, 3, 5, 5)"></div>
         </div>
         <div class="building-item">
@@ -144,11 +129,6 @@
                 <div class="buildig-name">12 - B1</div>
                 <div class="status paid"></div>
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
         </div>
         <div class="building-item">
             <div class="box1 flex items-center">
@@ -157,11 +137,6 @@
                 <div class="buildig-name">12 - B1</div>
                 <div class="status"></div>
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
             <div class="period" @click="show_building_modal()" :style="setPeriod(3, 5, 5, 5)"></div>
         </div>
         <div class="building-item">
@@ -171,11 +146,6 @@
                 <div class="buildig-name">12 - B1</div>
                 <div class="status paid"></div>
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
         </div>
         <div class="building-item">
             <div class="box1 flex items-center">
@@ -184,11 +154,6 @@
                 <div class="buildig-name">12 - B1</div>
                 <div class="status paid"></div>
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
         </div>
         <div class="building-item">
             <div class="box1 flex items-center">
@@ -197,11 +162,6 @@
                 <div class="buildig-name">12 - B1</div>
                 <div class="status"></div>
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
             <div class="period" @click="show_building_modal()" :style="setPeriod(1,2,1,4)"></div>
         </div>
         <div class="building-item">
@@ -211,11 +171,6 @@
                 <div class="buildig-name">12 - B1</div>
                 <div class="status"></div>
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
             <div class="period" @click="show_building_modal()" :style="setPeriod(3,5,2,1)"></div>
         </div>
         <div class="building-item" v-for="i in 12" :key="i">
@@ -225,11 +180,6 @@
                 <div class="buildig-name">12 - B1</div>
                 <div class="status paid"></div>
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
         </div>
     </div>
 </template>

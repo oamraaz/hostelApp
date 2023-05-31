@@ -1,4 +1,5 @@
 <template>
+    <AddClientModal style="z-index: 17;" v-show="addClientModal" @hide-modal="hideModal"></AddClientModal>
     <header class="flex">
         <div class="logo">CloudHouse</div>
         <div class="flex">
@@ -89,7 +90,7 @@
                             <span class="status unpaid">Не оплачено</span>
                             <div class="building">12 - B1</div>
                         </div>
-                        <div class="create-card-client">+ Создать заселение</div>
+                        <div class="create-card-client" @click="showAddClientModal">+ Создать заселение</div>
                     </div>
                 </div>
                 <div class="card">
@@ -161,7 +162,16 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import AddClientModal from './AddClientModal.vue'
+const addClientModal = ref(false)
 
+function hideModal () {
+  addClientModal.value = false
+}
+function showAddClientModal () {
+  addClientModal.value = true
+}
 </script>
 <style>
 header {
