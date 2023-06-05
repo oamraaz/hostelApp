@@ -1,5 +1,6 @@
 <template>
     <AddClientModal style="z-index: 17;" v-show="addClientModal" @hide-modal="hideModal"></AddClientModal>
+    <AddServiceModal style="z-index: 17;" v-show="addServiceModal" @hide-modal="hideModal"></AddServiceModal>
     <header class="flex">
         <div class="logo">CloudHouse</div>
         <div class="flex">
@@ -153,7 +154,7 @@
                             <div class="username">Доп. кровать</div>
                             <div class="building" style="margin-top: 5px;margin-bottom: -3px;">5 $</div>
                         </div>
-                        <div class="create-card-client">+ Добавить сервис</div>
+                        <div class="create-card-client" @click="showAddServiceModal">+ Добавить сервис</div>
                     </div>
                 </div>
             </div>
@@ -164,13 +165,19 @@
 <script setup>
 import { ref } from 'vue'
 import AddClientModal from './AddClientModal.vue'
+import AddServiceModal from './AddServiceModal.vue'
 const addClientModal = ref(false)
+const addServiceModal = ref(false)
 
 function hideModal () {
   addClientModal.value = false
+  addServiceModal.value = false
 }
 function showAddClientModal () {
   addClientModal.value = true
+}
+function showAddServiceModal () {
+  addServiceModal.value = true
 }
 </script>
 <style>
