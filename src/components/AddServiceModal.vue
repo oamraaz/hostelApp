@@ -21,15 +21,16 @@
 <script setup>
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
+import get from '../api/api'
 // Объекты
 const serviceParams = ref({})
 // Массивы
 const services = ref([])
 onMounted(async () => {
-  services.value = (await axios.get('http://localhost:9009/booking-service/booking/details/services')).data.data
+  services.value = (await axios.get(get() + '/booking-service/booking/details/services')).data.data
 })
 async function addServiceForClient () {
-  const test = await axios.get('http://localhost:9009/booking-service/booking/update',
+  const test = await axios.get(get() + 'booking-service/booking/update',
     {
       params: {
         room: serviceParams.value.roomId,

@@ -2,12 +2,15 @@ import { createRouter, createWebHistory } from 'vue-router'
 import useUser from './composables/useUser'
 const routes = [
   {
+    name: 'Home',
     path: '/',
     component: () => import('./components/Home.vue')
   },
   {
-    path: '/room',
-    component: () => import('./components/HomeRoom.vue')
+    name: 'Rooms',
+    path: '/room/:query',
+    component: () => import('./components/HomeRoom.vue'),
+    props: true
   },
   { path: '/about', component: () => import('./components/HomeAbout.vue') },
   { path: '/profile', component: () => import('./components/HomeProfile.vue') },

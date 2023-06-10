@@ -1,11 +1,11 @@
 // composables for user authentication
-import api from '../api/api'
+import get from '../api/api'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import { onMounted, ref } from 'vue'
 
-const keycloakUrl = api.get('keyclock')
-const guestUrl = api.get()
+const keycloakUrl = get('keyclock')
+const guestUrl = get()
 const loginUrl = `${keycloakUrl}/auth/realms/CloudHouse/protocol/openid-connect/token`
 const registerUrl = `${guestUrl}/guest-service/guest/register`
 export default function useAuth () {
@@ -33,7 +33,7 @@ export default function useAuth () {
         },
         auth: {
           username: 'cloudhouse',
-          password: 'ErbIDLyUdD3FnWFzlqYC3unld1dndESi'
+          password: 'dQSivpLAPBVwtv5oujItax3D3JATDfGO'
         }
       }
     )

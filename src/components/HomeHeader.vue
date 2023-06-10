@@ -70,22 +70,30 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, reactive } from 'vue'
 import useAuth from './../composables/useAuth'
 import axios from 'axios'
+import get from '../api/api.js'
+import { useRouter } from 'vue-router'
 const { isAuthorized } = useAuth()
-const orderParams = ref({})
+const router = useRouter()
+
+const orderParams = reactive({
+  checkIn: getTodayDate(),
+  checkOut: getTodayDate(),
+  roomId: 3,
+  personCount: 1
+})
 async function checkAvailability () {
-  const test = await axios.get('http://localhost:9009/booking-service/booking/available/rooms',
-    {
+  router.push({ name: 'Home' })
+  setTimeout(() => {
+    router.push({
+      name: 'Rooms',
       params: {
-        checkIn: new Date(orderParams.value.checkIn),
-        checkOut: new Date(orderParams.value.checkOut),
-        roomType: orderParams.value.roomId,
-        persons: orderParams.value.personCount
+        query: JSON.stringify(orderParams)
       }
     })
-  // переход на страницу
+  }, 100)
 }
 const rooms = ref([])
 const persons = ref([
@@ -103,10 +111,16 @@ const persons = ref([
   }
 ])
 onMounted(async () => {
-  rooms.value = (await axios.get('http://localhost:9009/booking-service/booking/details/room/types')).data.data
-  console.log(rooms)
+  rooms.value = (await axios.get(get() + '/booking-service/booking/details/room/types')).data.data
 })
 
+function getTodayDate () {
+  const today = new Date()
+  const month = String(today.getMonth() + 1).padStart(2, '0')
+  const day = String(today.getDate()).padStart(2, '0')
+  const year = today.getFullYear()
+  return `${year}-${month}-${day}`
+}
 </script>
 
 <style>

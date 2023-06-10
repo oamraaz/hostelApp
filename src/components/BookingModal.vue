@@ -81,7 +81,18 @@
         </div>
     </div>
 </template>
+<script setup>
+import { useVModel } from "@vueuse/core"
 
+const props = defineProps({
+  modelValue: {
+    type: Array,
+    required: true
+  }
+})
+const emit = defineEmits(['update:modelValue'])
+const booking = useVModel(props, 'modelValue', emit)
+</script>
 <style scoped>
 .fixed {
     background: rgba(0, 0, 0, 0.571);
