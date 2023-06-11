@@ -1,7 +1,7 @@
 <template>
     <HomeHeader @show-modal="showFormModal" />
     <HomeModal v-show="formModal" @hide-modal="hideFormModal" />
-    <BookingModal ref="target" v-if="bookingModal" @hide-modal="hideBookingModal" />
+    <BookingModal ref="target" v-if="bookingModal" v-model="booking" @hide-modal="hideBookingModal" />
     <RoomContent v-model="rooms" @show-modal="showBookingModal" />
     <HomeFooter />
 </template>
@@ -20,18 +20,22 @@ const props = defineProps(['query'])
 
 const rooms = ref()
 onMounted(async () => {
-  const params = JSON.parse(props.query)
-  const { data: { data: result } } = await axios.get(get() + '/booking-service/booking/available/rooms',
-    {
-      params: {
-        checkIn: new Date(params.checkIn),
-        checkOut: new Date(params.checkOut),
-        roomType: params.roomId,
-        persons: params.personCount
-      }
-    })
-  rooms.value = result
+  console.log(props)
+  if (props.query !== '') {
+    const params = JSON.parse(props.query)
+    const { data: { data: result } } = await axios.get(get() + '/booking-service/booking/available/rooms',
+      {
+        params: {
+          checkIn: new Date(params.checkIn),
+          checkOut: new Date(params.checkOut),
+          roomType: params.roomId,
+          persons: params.personCount
+        }
+      })
+    rooms.value = result
+  }
 })
+const booking = ref()
 const formModal = ref(false)
 const bookingModal = ref(false)
 function showFormModal () {
@@ -40,7 +44,13 @@ function showFormModal () {
 function hideFormModal () {
   formModal.value = false
 }
-function showBookingModal () {
+function showBookingModal (data) {
+  const params = JSON.parse(props.query)
+  booking.value = {
+    ...data,
+    checkIn: new Date(params.checkIn).toISOString().slice(0, 19),
+    checkOut: new Date(params.checkOut).toISOString().slice(0, 19)
+  }
   bookingModal.value = true
 }
 function hideBookingModal () {

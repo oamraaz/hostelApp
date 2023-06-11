@@ -1,6 +1,7 @@
 <template>
 <div class="rooms flex justify-center">
-    <!-- <div class="room flex flex-col">
+    <template v-if="items === undefined">
+    <div class="room flex flex-col">
         <img src="../assets/rooms/root-1.png" alt="">
         <div class="room-content flex flex-col">
             <div class="flex justify-between items-center">
@@ -10,7 +11,7 @@
             <div class="room-description">Lux rooms are the epitome of comfort and style. Designed with elegance and luxury in mind, these rooms offer the perfect retreat for travelers seeking a truly exceptional experience. From the plush bedding and high-end furnishings to the state-of-the-art technology and breathtaking views, every detail has been carefully selected to create a serene and sophisticated atmosphere.</div>
             <div class="flex justify-between items-center">
                 <a href="#" class="room-more">Read more</a>
-                <button class="room-book" @click="Test()">BOOK</button>
+                <button class="room-book" @click="toBooking($event)">BOOK</button>
             </div>
         </div>
     </div>
@@ -24,7 +25,7 @@
             <div class="room-description">Lux rooms are the epitome of comfort and style. Designed with elegance and luxury in mind, these rooms offer the perfect retreat for travelers seeking a truly exceptional experience. From the plush bedding and high-end furnishings to the state-of-the-art technology and breathtaking views, every detail has been carefully selected to create a serene and sophisticated atmosphere.</div>
             <div class="flex justify-between items-center">
                 <a href="#" class="room-more">Read more</a>
-                <button class="room-book" @click="$emit('show-modal')">BOOK</button>
+                <button class="room-book" @click="toBooking($event)">BOOK</button>
             </div>
         </div>
     </div>
@@ -38,7 +39,7 @@
             <div class="room-description">Lux rooms are the epitome of comfort and style. Designed with elegance and luxury in mind, these rooms offer the perfect retreat for travelers seeking a truly exceptional experience. From the plush bedding and high-end furnishings to the state-of-the-art technology and breathtaking views, every detail has been carefully selected to create a serene and sophisticated atmosphere.</div>
             <div class="flex justify-between items-center">
                 <a href="#" class="room-more">Read more</a>
-                <button class="room-book" @click="$emit('show-modal')">BOOK</button>
+                <button class="room-book" @click="toBooking($event)">BOOK</button>
             </div>
         </div>
     </div>
@@ -52,10 +53,12 @@
             <div class="room-description">Lux rooms are the epitome of comfort and style. Designed with elegance and luxury in mind, these rooms offer the perfect retreat for travelers seeking a truly exceptional experience. From the plush bedding and high-end furnishings to the state-of-the-art technology and breathtaking views, every detail has been carefully selected to create a serene and sophisticated atmosphere.</div>
             <div class="flex justify-between items-center">
                 <a href="#" class="room-more">Read more</a>
-                <button class="room-book" @click="$emit('show-modal')">BOOK</button>
+                <button class="room-book" @click="toBooking($event)">BOOK</button>
             </div>
         </div>
-    </div> -->
+    </div>
+    </template>
+    <template v-else>
     <div class="room flex flex-col" :key="item.idRoom" v-for="item in items">
                 <img v-if="item.roomType.typeName === 'lux'" src="../assets/rooms/root-1.png" alt="">
                 <img v-if="item.roomType.typeName === 'delux'" src="../assets/rooms/root-2.png" alt="">
@@ -69,10 +72,11 @@
             <div class="room-description">Lux rooms are the epitome of comfort and style. Designed with elegance and luxury in mind, these rooms offer the perfect retreat for travelers seeking a truly exceptional experience. From the plush bedding and high-end furnishings to the state-of-the-art technology and breathtaking views, every detail has been carefully selected to create a serene and sophisticated atmosphere.</div>
             <div class="flex justify-between items-center">
                 <a href="#" class="room-more">Read more</a>
-                <button class="room-book"  @click="$emit('show-modal')">BOOK</button>
+                <button class="room-book"  @click="toBooking(item)">BOOK</button>
             </div>
         </div>
     </div>
+    </template>
 </div>
 </template>
 
@@ -95,10 +99,10 @@ const emit = defineEmits(['update:modelValue', 'show-modal'])
 const items = useVModel(props, 'modelValue', emit)
 const rooms = ref([])
 onMounted(async () => {
-  console.log(items.value)
-
-  rooms.value= (await axios.get(get() + '/booking-service/booking/details/room/types')).data.data
-  console.log(rooms)
+  if (items.value === undefined) {
+    rooms.value = (await axios.get(get() + '/booking-service/booking/details/room/types')).data.data
+    console.log(rooms)
+  }
 })
 watch(items, (newValue, oldValue) => {
   console.log(newValue)
@@ -109,8 +113,8 @@ watch(items, (newValue, oldValue) => {
     return item
   })
 })
-function Test () {
-  console.log(items.value)
+function toBooking (data) {
+  emit('show-modal', data)
 }
 </script>
 

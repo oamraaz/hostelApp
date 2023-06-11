@@ -8,7 +8,7 @@ const routes = [
   },
   {
     name: 'Rooms',
-    path: '/room/:query',
+    path: '/room/:query?',
     component: () => import('./components/HomeRoom.vue'),
     props: true
   },

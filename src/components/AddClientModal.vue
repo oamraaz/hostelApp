@@ -112,7 +112,7 @@ const selectedAdultsCount = ref(0)
 selectedAdultsCount.value = persons.value[0].number
 selectedChildrenCount.value = kids.value[0].number
 const token = JSON.parse(Cookies.get('user')).access_token
-console.log(token)
+// console.log(token)
 onMounted(async () => {
   rooms.value = (await axios.get(get() + '/booking-service/booking/details/room/types')).data.data
   additionalServices.value = (await axios.get(get() + '/booking-service/booking/details/services')).data.data

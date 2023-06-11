@@ -163,11 +163,21 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import axios from 'axios'
+import { onMounted, ref } from 'vue'
+import get from '../api/api'
+import Cookies from 'js-cookie'
 import AddClientModal from './AddClientModal.vue'
 import AddServiceModal from './AddServiceModal.vue'
 const addClientModal = ref(false)
 const addServiceModal = ref(false)
+const token = JSON.parse(Cookies.get('user')).access_token
+onMounted(async () => {
+  // http://{{host}}:9009/booking-service/booking/all
+  const config = { headers: { Authorization: `Bearer ${token}` } }
+  const { data: { data: result } } = await axios.get(get() + '/booking-service/booking/check-in/today', config)
+  console.log(result)
+})
 
 function hideModal () {
   addClientModal.value = false
