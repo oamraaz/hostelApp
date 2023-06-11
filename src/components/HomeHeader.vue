@@ -9,12 +9,12 @@
                 <router-link class="navigation-item" :class="{
                     active: $route.path == '/room'
                 }" to="/room">ROOMS</router-link>
-                <router-link class="navigation-item" :class="{
+                <!-- <router-link class="navigation-item" :class="{
                     active: $route.path == '/about'
-                }" to="/about">ABOUT</router-link>
-                <router-link class="navigation-item" :class="{
+                }" to="/about">ABOUT</router-link> -->
+                <!-- <router-link class="navigation-item" :class="{
                     active: $route.path == '/bookings'
-                }" to="/bookings">BOOKINGS</router-link>
+                }" to="/bookings">BOOKINGS</router-link> -->
             </div>
             <div class="flex items-center">
                 <div class="lang">ENG</div>

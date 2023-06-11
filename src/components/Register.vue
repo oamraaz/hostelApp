@@ -148,7 +148,7 @@
               role="button"
               data-te-ripple-init
               data-te-ripple-color="light"
-              @click="login"
+              @click="register"
             >
               Register
             </a>
@@ -158,7 +158,7 @@
               role="button"
               data-te-ripple-init
               data-te-ripple-color="light"
-              @click="register"
+              @click="login"
             >
               <p>Or</p>
               Log in

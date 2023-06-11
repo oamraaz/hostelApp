@@ -37,7 +37,7 @@ async function signIn () {
   console.log(user.value)
   const result = await login(user.value)
   console.log(result)
-  router.push('/profile')
+  router.push({ path: '/profile' })
 
   emit('hideModal')
 }
@@ -48,7 +48,7 @@ async function signUp () {
   }
   const result = await register(user.value)
   console.log(result)
-  router.push('/profile')
+  router.push({ path: '/' })
 
   emit('hideModal')
 }
