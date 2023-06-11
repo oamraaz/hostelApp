@@ -1,6 +1,6 @@
 <template>
     <home-header :isAuthorized="true"/>
-    <booking-modal v-show="booking_modal" @hide-modal="hide_booking_modal" />
+    <booking-modal v-if="booking_modal" @hide-modal="hide_booking_modal" />
     <profile-content @show-modal="show_booking_modal" />
     <home-footer />
 </template>

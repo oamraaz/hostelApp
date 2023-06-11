@@ -5,11 +5,11 @@
             <div class="flex">
                 <img src="../assets/profile-black.png" class="profile-black-img" alt="">
                 <div class="profile-info flex flex-col">
-                    <input type="text" value="Иван Иванов">
-                    <input type="email" value="ivaninvanov@mail.com">
+                    <input type="text" :value="user?.firstName">
+                    <input type="email" :value="user?.email">
                     <input type="tel" value="+0 (848) 894-32-32">
-                    <input type="text" value="Возраст: 18">
-                    <input type="text" value="Дата рождения: 08.12.2001">
+                    <input type="text" :value="age(user?.birthDate)">
+                    <input type="text" :value="'Дата рождения: ' + user?.birthDate">
                 </div>
             </div>
         </div>
@@ -25,15 +25,15 @@
                         <th>PRICE</th>
                         <th>&nbsp;</th>
                     </tr>
-                    <tr>
-                        <td>NEW</td>
-                        <td>01.02.2023</td>
-                        <td>10.02.2023</td>
-                        <td>DELUX</td>
-                        <td class="booking-td-price">270 $</td>
-                        <td class="border-none"><i class="fa-solid fa-pen"></i></td>
+                    <tr v-for="booking in bookings" :key="booking.idBooking">
+                        <td>{{booking.status}}</td>
+                        <td>{{(new Date(booking.checkIn)).getDate()}}.{{(new Date(booking.checkIn)).getMonth()}}.{{(new Date(booking.checkIn)).getFullYear()}}</td>
+                        <td>{{(new Date(booking.checkOut)).getDate()}}.{{(new Date(booking.checkOut)).getMonth()}}.{{(new Date(booking.checkOut)).getFullYear()}}</td>
+                        <td>{{booking.room.roomType.typeName}}</td>
+                        <td class="booking-td-price">{{booking.totalPrice}} $</td>
+                        <!-- <td class="border-none"><i class="fa-solid fa-pen"></i></td> -->
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td>CANCELED</td>
                         <td>01.02.2023</td>
                         <td>10.02.2023</td>
@@ -56,13 +56,30 @@
                         <td class="border-none">DELUX</td>
                         <td class="border-none booking-td-price">270 $</td>
                         <td class="border-none"><i class="fa-solid fa-pen"></i></td>
-                    </tr>
+                    </tr> -->
                 </table>
             </div>
         </div>
     </div>
 </template>
+<script setup>
+import { onMounted } from 'vue'
+import useUser from '../composables/useUser'
 
+const { user, bookings } = useUser()
+onMounted(() => {
+  console.log(user.value)
+})
+
+function age (birthdate) {
+  birthdate = new Date(birthdate)
+  const today = new Date()
+  const age = today.getFullYear() - birthdate.getFullYear() -
+             (today.getMonth() < birthdate.getMonth() ||
+             (today.getMonth() === birthdate.getMonth() && today.getDate() < birthdate.getDate()))
+  return age
+}
+</script>
 <style>
 
 h3 {

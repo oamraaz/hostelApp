@@ -18,7 +18,12 @@
             </div>
             <div class="flex items-center">
                 <div class="lang">ENG</div>
-                <img v-if="isAuthorized" src="../assets/profile.png" class="profile-icon" alt="">
+
+                <img v-if="isAuthorized" src="../assets/profile.png" class="profile-icon" alt="" @click="profile">
+                <!-- <i  v-if="isAuthorized"  class="fa fa-user profile-icon" style="font-size:36px; color: white"></i> -->
+                <div v-if="isAuthorized" @click="exit">
+                <i    class="fa fa-sign-out profile-icon1" style="color: white" ></i>
+                </div>
                 <div v-else class="login select-none" @click="$emit('showModal')">Login</div>
             </div>
         </nav>
@@ -75,7 +80,7 @@ import useAuth from './../composables/useAuth'
 import axios from 'axios'
 import get from '../api/api.js'
 import { useRouter } from 'vue-router'
-const { isAuthorized } = useAuth()
+const { isAuthorized, logout } = useAuth()
 const router = useRouter()
 
 const orderParams = reactive({
@@ -120,6 +125,14 @@ function getTodayDate () {
   const day = String(today.getDate()).padStart(2, '0')
   const year = today.getFullYear()
   return `${year}-${month}-${day}`
+}
+
+function profile () {
+  router.push({ path: '/profile' })
+}
+function exit () {
+  logout()
+  router.push({ path: '/' })
 }
 </script>
 
@@ -322,5 +335,16 @@ header {
     padding: 0 17.5px 10px;
     cursor: pointer;
     user-select: none;
+    background: transparent;
+}
+.profile-icon1{
+       border-bottom: 1px solid white;
+    width: 76px;
+    height: 45px;
+    padding: 0 17.5px 10px;
+    cursor: pointer;
+    user-select: none;
+    background: transparent;
+    font-size:12px;
 }
 </style>

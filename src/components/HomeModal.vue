@@ -22,11 +22,13 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import useAuth from '../composables/useAuth'
 const isRegister = ref(false)
 const emit = defineEmits(['hideModal'])
 const user = ref({})
 const { login, register} = useAuth()
+const router  = useRouter()
 async function signIn () {
   if (isRegister.value) {
     isRegister.value = !isRegister.value
@@ -35,6 +37,8 @@ async function signIn () {
   console.log(user.value)
   const result = await login(user.value)
   console.log(result)
+  router.push('/profile')
+
   emit('hideModal')
 }
 async function signUp () {
@@ -44,6 +48,8 @@ async function signUp () {
   }
   const result = await register(user.value)
   console.log(result)
+  router.push('/profile')
+
   emit('hideModal')
 }
 

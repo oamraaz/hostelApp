@@ -40,6 +40,7 @@ export default function useAuth () {
 
     if (response.data.access_token) {
       Cookies.set('user', JSON.stringify(response.data),
+      Cookies.set('email', JSON.stringify(user.username)),
         // 1 hour
         { expires: 1 / 24 })
       isAuthorized.value = true
